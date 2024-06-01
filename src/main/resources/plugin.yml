@@ -1,0 +1,7 @@
+name: BasicLockette
+version: 0.1
+main: me.devcexx.basiclockette.BasicLockette
+description: Basic Lockette for Minecraft 1.20
+author: devcexx
+website: https://github.com/devcexx
+api-version: '1.20'
