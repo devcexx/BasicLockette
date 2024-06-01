@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "me.devcexx"
-version = "1.0-SNAPSHOT"
+version = "0.1-SNAPSHOT"
 
 val testServerPath = projectDir.resolve("server")
 val testServerPluginsPath = testServerPath.resolve("plugins")
