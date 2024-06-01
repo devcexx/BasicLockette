@@ -5,3 +5,8 @@ description: Basic Lockette for Minecraft 1.20
 author: devcexx
 website: https://github.com/devcexx
 api-version: '1.20'
+
+commands:
+  blgod:
+    description: Toggles god mode for the given player
+

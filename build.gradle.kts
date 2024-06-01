@@ -24,6 +24,7 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
 kotlin {
     jvmToolchain(21)
 }
@@ -42,6 +43,7 @@ tasks {
         workingDir = testServerPath
         classpath = files(testServerPath.resolve("paper.jar"))
         jvmArgs("-Dbasiclockette.debug=1")
+        jvmArgs("-Dbasiclockette.customtranslations=1")
         args = listOf("nogui")
         standardInput = System.`in`
     }

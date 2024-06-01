@@ -14,12 +14,15 @@ import org.bukkit.entity.HumanEntity
 import org.bukkit.inventory.DoubleChestInventory
 import org.bukkit.persistence.PersistentDataType
 import java.util.UUID
+import java.util.WeakHashMap
 
 class LocketteService(private val plugin: BasicLockette) {
     companion object : Logging by logFor<WorldListener>() {
         private val KEY_CLAIMER_ID = NamespacedKey.fromString("basiclockette:claimer_id")!!
         private val KEY_CLAIMER_LAST_KNOWN_NAME = NamespacedKey.fromString("basiclockette:claimer_last_known_name")!!
     }
+
+    private val godModePlayers = WeakHashMap<HumanEntity, Unit>()
 
     private fun perpendicularChestFace(face: BlockFace): BlockFace =
         when (face) {
@@ -263,4 +266,21 @@ class LocketteService(private val plugin: BasicLockette) {
 
         return newClaimingSign?.let { ClaimedChest(claimer.playerProfile, location, it) }
     }
+
+    fun toggleGodMode(player: HumanEntity): Boolean {
+        if (hasGodModeEnabled(player)) {
+            godModePlayers.remove(player)
+            return false
+        } else {
+            godModePlayers[player] = Unit
+            return true
+        }
+    }
+
+    fun hasGodModeEnabled(player: HumanEntity): Boolean = godModePlayers.containsKey(player)
+
+    fun isAccessAllowedToClaimedChest(
+        claimedChest: ClaimedChest,
+        player: HumanEntity,
+    ): Boolean = hasGodModeEnabled(player) || player.uniqueId == claimedChest.owner.id
 }
